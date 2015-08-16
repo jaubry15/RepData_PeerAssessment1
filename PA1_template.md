@@ -1,6 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 ==========================================
-Created by Jared Aubry on August 16, 2015
+  Created by Jared Aubry on August 16, 2015
 
 ### Basic settings
 
@@ -57,8 +57,8 @@ ggplot(noNA, aes(date, steps)) + geom_bar(stat = "identity", colour = "steelblue
 * Calculate and report the mean and median total number of steps taken per day
 
 Mean total number of steps taken per day:
-
-```r
+  
+  ```r
 totalSteps <- aggregate(noNA$steps, list(Date = noNA$date), FUN = "sum")$x
 mean(totalSteps)
 ```
@@ -67,8 +67,8 @@ mean(totalSteps)
 ## [1] 10766
 ```
 Median total number of steps taken per day:
-
-```r
+  
+  ```r
 median(totalSteps)
 ```
 
@@ -102,9 +102,9 @@ avgSteps[avgSteps$meanOfSteps == max(avgSteps$meanOfSteps), ]
 
 ### Imputing missing values
 * The total number of rows with NAs:
-
-
-```r
+  
+  
+  ```r
 sum(is.na(data))
 ```
 
@@ -122,9 +122,9 @@ My strategy is to use the mean for that 5-minute interval to fill each NA value 
 ```r
 newData <- data 
 for (i in 1:nrow(newData)) {
-    if (is.na(newData$steps[i])) {
-        newData$steps[i] <- avgSteps[which(newData$interval[i] == avgSteps$interval), ]$meanOfSteps
-    }
+  if (is.na(newData$steps[i])) {
+    newData$steps[i] <- avgSteps[which(newData$interval[i] == avgSteps$interval), ]$meanOfSteps
+  }
 }
 
 head(newData)
@@ -163,8 +163,8 @@ ggplot(newData, aes(date, steps)) + geom_bar(stat = "identity",
 * Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
 Mean total number of steps taken per day:
-
-```r
+  
+  ```r
 newTotalSteps <- aggregate(newData$steps, 
                            list(Date = newData$date), 
                            FUN = "sum")$x
@@ -176,8 +176,8 @@ newMean
 ## [1] 10766
 ```
 Median total number of steps taken per day:
-
-```r
+  
+  ```r
 newMedian <- median(newTotalSteps)
 newMedian
 ```
@@ -186,8 +186,8 @@ newMedian
 ## [1] 10766
 ```
 Compare them with the two before imputing missing data:
-
-```r
+  
+  ```r
 oldMean <- mean(totalSteps)
 oldMedian <- median(totalSteps)
 newMean - oldMean
